@@ -31,17 +31,17 @@ const getRandomColumnFill = () => {
   return `hsl(255, ${saturation}%, 50%)`;
 };
 
-const renderCloud = function (ctx, x, y, color) {
+const renderCloud = (ctx, x, y, color) => {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-const renderColumn = function (ctx, x, y, height, isUserColumn) {
+const renderColumn = (ctx, x, y, height, isUserColumn) => {
   ctx.fillStyle = isUserColumn ? USER_COLUMN_FILL : getRandomColumnFill();
   ctx.fillRect(x, y, COLUMN_WIDTH, height);
 };
 
-const renderText = function (ctx, x, y, text) {
+const renderText = (ctx, x, y, text) => {
   ctx.fontStyle = FONT;
   ctx.fillStyle = FONT_COLOR;
   ctx.fillText(text, x, y);
@@ -49,7 +49,7 @@ const renderText = function (ctx, x, y, text) {
 
 const isUserColumn = (name) => name === `Вы`;
 
-window.renderStatistics = function (ctx, names, times) {
+window.renderStatistics = (ctx, names, times) => {
   renderCloud(ctx, CLOUD_X + CLOUD_SHADOW_OFFSET, CLOUD_Y + CLOUD_SHADOW_OFFSET, CLOUD_SHADOW_FILL);
   renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_FILL);
 
@@ -63,8 +63,7 @@ window.renderStatistics = function (ctx, names, times) {
     const proportionHeight = Math.round(MAX_COLUMN_HEIGHT * time / maxTime);
     const heightDelta = MAX_COLUMN_HEIGHT - proportionHeight;
 
-    renderText(
-        ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + MAX_COLUMN_HEIGHT + LARGE_GAP, name);
+    renderText(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + MAX_COLUMN_HEIGHT + LARGE_GAP, name);
     renderColumn(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + heightDelta + GAP, MAX_COLUMN_HEIGHT - GAP - heightDelta, isUserColumn(name));
     renderText(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + heightDelta, time);
   });
