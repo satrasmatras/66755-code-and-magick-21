@@ -49,10 +49,14 @@ const renderColumns = (ctx, names, times) => {
     const time = Math.round(times[i]);
     const proportionHeight = getProportionHeight(time, maxTime);
     const heightDelta = MAX_COLUMN_HEIGHT - proportionHeight;
+    const resultColumnHeight = MAX_COLUMN_HEIGHT - GAP - heightDelta;
 
-    renderText(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + MAX_COLUMN_HEIGHT + LARGE_GAP, name);
-    renderColumn(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + heightDelta + GAP, MAX_COLUMN_HEIGHT - GAP - heightDelta, isUserColumn(name));
-    renderText(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + heightDelta, time);
+    const columnX = CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i;
+    const baseY = CLOUD_Y + COLUMN_PADDING_TOP;
+
+    renderText(ctx, columnX, baseY + MAX_COLUMN_HEIGHT + LARGE_GAP, name);
+    renderColumn(ctx, columnX, baseY + heightDelta + GAP, resultColumnHeight, isUserColumn(name));
+    renderText(ctx, columnX, baseY + heightDelta, time);
   });
 };
 
