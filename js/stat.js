@@ -40,12 +40,14 @@ const renderCloud = (ctx, x, y, color) => {
   renderRect(ctx, x, y, CLOUD_WIDTH, CLOUD_HEIGHT, color);
 };
 
+const getProportionHeight = (time, max) => Math.round(MAX_COLUMN_HEIGHT * time / max);
+
 const renderColumns = (ctx, names, times) => {
   const maxTime = Math.max(...times);
 
   names.forEach((name, i) => {
     const time = Math.round(times[i]);
-    const proportionHeight = Math.round(MAX_COLUMN_HEIGHT * time / maxTime);
+    const proportionHeight = getProportionHeight(time, maxTime);
     const heightDelta = MAX_COLUMN_HEIGHT - proportionHeight;
 
     renderText(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + MAX_COLUMN_HEIGHT + LARGE_GAP, name);
