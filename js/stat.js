@@ -40,6 +40,20 @@ const renderCloud = (ctx, x, y, color) => {
   renderRect(ctx, x, y, CLOUD_WIDTH, CLOUD_HEIGHT, color);
 };
 
+const renderColumns = (ctx, names, times) => {
+  const maxTime = Math.max(...times);
+
+  names.forEach((name, i) => {
+    const time = Math.round(times[i]);
+    const proportionHeight = Math.round(MAX_COLUMN_HEIGHT * time / maxTime);
+    const heightDelta = MAX_COLUMN_HEIGHT - proportionHeight;
+
+    renderText(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + MAX_COLUMN_HEIGHT + LARGE_GAP, name);
+    renderColumn(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + heightDelta + GAP, MAX_COLUMN_HEIGHT - GAP - heightDelta, isUserColumn(name));
+    renderText(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + heightDelta, time);
+  });
+};
+
 const renderColumn = (ctx, x, y, height, isUserColumn) => {
   const color = isUserColumn ? USER_COLUMN_FILL : getRandomColumnFill();
   renderRect(ctx, x, y, COLUMN_WIDTH, height, color);
@@ -60,15 +74,5 @@ window.renderStatistics = (ctx, names, times) => {
   renderText(ctx, CLOUD_X + LARGE_GAP, CLOUD_Y + LARGE_GAP * 2, FIRST_TITLE_ROW);
   renderText(ctx, CLOUD_X + LARGE_GAP, CLOUD_Y + LARGE_GAP * 3, SECOND_TITLE_ROW);
 
-  const maxTime = Math.max(...times);
-
-  names.forEach((name, i) => {
-    const time = Math.round(times[i]);
-    const proportionHeight = Math.round(MAX_COLUMN_HEIGHT * time / maxTime);
-    const heightDelta = MAX_COLUMN_HEIGHT - proportionHeight;
-
-    renderText(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + MAX_COLUMN_HEIGHT + LARGE_GAP, name);
-    renderColumn(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + heightDelta + GAP, MAX_COLUMN_HEIGHT - GAP - heightDelta, isUserColumn(name));
-    renderText(ctx, CLOUD_X + COLUMN_WIDTH + (COLUMN_GAP + COLUMN_WIDTH) * i, CLOUD_Y + COLUMN_PADDING_TOP + heightDelta, time);
-  });
+  renderColumns(ctx, names, times);
 };
