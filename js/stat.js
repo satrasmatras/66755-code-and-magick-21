@@ -31,14 +31,18 @@ const getRandomColumnFill = () => {
   return `hsl(255, ${saturation}%, 50%)`;
 };
 
-const renderCloud = (ctx, x, y, color) => {
+const renderRect = (ctx, x, y, w, h, color) => {
   ctx.fillStyle = color;
-  ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
+  ctx.fillRect(x, y, w, h);
+};
+
+const renderCloud = (ctx, x, y, color) => {
+  renderRect(ctx, x, y, CLOUD_WIDTH, CLOUD_HEIGHT, color);
 };
 
 const renderColumn = (ctx, x, y, height, isUserColumn) => {
-  ctx.fillStyle = isUserColumn ? USER_COLUMN_FILL : getRandomColumnFill();
-  ctx.fillRect(x, y, COLUMN_WIDTH, height);
+  const color = isUserColumn ? USER_COLUMN_FILL : getRandomColumnFill();
+  renderRect(ctx, x, y, COLUMN_WIDTH, height, color);
 };
 
 const renderText = (ctx, x, y, text) => {
