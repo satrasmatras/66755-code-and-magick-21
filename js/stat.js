@@ -38,7 +38,7 @@ const CurrentUser = {
 const MAX_SATURATION_IN_PERCENT = 70;
 
 const getRandomColumnFill = () => {
-  const saturation = Math.random() * MAX_SATURATION_IN_PERCENT;
+  const saturation = Math.round(Math.random() * MAX_SATURATION_IN_PERCENT);
   return `hsl(255, ${saturation}%, 50%)`;
 };
 
