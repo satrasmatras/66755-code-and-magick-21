@@ -102,8 +102,10 @@ const fillWizardElement = (wizardElement, randomWizard) => {
 };
 
 const createSimilarWizardElement = (template, similarWizard) => {
+  const fragment = document.createDocumentFragment();
   const similarWizardElement = template.cloneNode(true);
   fillWizardElement(similarWizardElement, similarWizard);
+  fragment.append(similarWizardElement);
   return similarWizardElement;
 };
 
