@@ -10,6 +10,7 @@ const NAMES = [
   `Люпита`,
   `Вашингтон`
 ];
+
 const SURNAMES = [
   `да Марья`,
   `Верон`,
@@ -20,6 +21,7 @@ const SURNAMES = [
   `Нионго`,
   `Ирвинг`
 ];
+
 const COAT_COLORS = [
   `rgb(101, 137, 164)`,
   `rgb(241, 43, 107)`,
@@ -28,6 +30,7 @@ const COAT_COLORS = [
   `rgb(215, 210, 55)`,
   `rgb(0, 0, 0)`
 ];
+
 const EYE_COLORS = [
   `black`,
   `red`,
@@ -35,6 +38,7 @@ const EYE_COLORS = [
   `yellow`,
   `green`
 ];
+
 const SIMILAR_WIZARDS_COUNT = 4;
 
 const getRandomNumberInRange = (max) => {
