@@ -106,7 +106,7 @@ const createSimilarWizardElement = (template, similarWizard) => {
   const similarWizardElement = template.cloneNode(true);
   fillWizardElement(similarWizardElement, similarWizard);
   fragment.append(similarWizardElement);
-  return similarWizardElement;
+  return fragment;
 };
 
 const createSimilarWizardElements = (template, similarWizards) => {
