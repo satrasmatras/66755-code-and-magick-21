@@ -59,8 +59,7 @@ const getWizardCoatColor = () => getRandomFromArray(COAT_COLORS);
 
 const getWizardEyeColor = () => getRandomFromArray(EYE_COLORS);
 
-const showElement = (selector) => {
-  const element = document.querySelector(selector);
+const showElement = (element) => {
   element.classList.remove(`hidden`);
 };
 
@@ -115,8 +114,12 @@ const createSimilarWizardElements = (template, similarWizards) => {
   });
 };
 
-showElement(`.setup`);
-showElement(`.setup-similar`);
+const setupElement = document.querySelector(`.setup`);
+const setupOpenElement = document.querySelector(`.setup-open`);
+const setupSimilarElement = document.querySelector(`.setup-similar`);
+
+showElement(setupElement);
+showElement(setupSimilarElement);
 
 const similarListElement = document.querySelector(`.setup-similar-list`);
 const similarWizardTemplate = getSimilarWizardTemplate();
