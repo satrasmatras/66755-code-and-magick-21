@@ -137,13 +137,13 @@ const setupCloseElement = setupElement.querySelector(`.setup-close`);
 const setupPlayerElement = setupElement.querySelector(`.setup-player`);
 
 const setupWizardEyesElement = setupPlayerElement.querySelector(`.wizard-eyes`);
-const setupWizardEyesInputElement = setupPlayerElement.querySelector(`input[name = 'eyes-color']`);
+const setupWizardEyesInputElement = setupPlayerElement.querySelector(`#eyes-color`);
 
 const setupWizardCoatElement = setupPlayerElement.querySelector(`.wizard-coat`);
-const setupWizardCoatInputElement = setupPlayerElement.querySelector(`input[name = 'coat-color']`);
+const setupWizardCoatInputElement = setupPlayerElement.querySelector(`#coat-color`);
 
 const setupFireballWrapElement = setupPlayerElement.querySelector(`.setup-fireball-wrap`);
-const setupFireballInputElement = setupPlayerElement.querySelector(`input[name = 'fireball-color']`);
+const setupFireballInputElement = setupPlayerElement.querySelector(`#fireball-color`);
 
 const setupNameInputElement = setupElement.querySelector(`#username`);
 
@@ -162,11 +162,11 @@ const onWizardEyesClick = () => {
 };
 
 const onWizardCoatClick = () => {
-  setWizardPartColor(setupWizardCoatElement, `fill`, setupFireballInputElement, FIREBALL_COLORS);
+  setWizardPartColor(setupWizardCoatElement, `fill`, setupFireballInputElement, COAT_COLORS);
 };
 
 const onFireballClick = () => {
-  setWizardPartColor(setupFireballWrapElement, `background-color`, setupWizardCoatInputElement, COAT_COLORS);
+  setWizardPartColor(setupFireballWrapElement, `background-color`, setupFireballInputElement, FIREBALL_COLORS);
 };
 
 const onSetupCloseClick = () => {
@@ -181,13 +181,13 @@ const onSetupCloseEnterPressed = (event) => {
   }
 };
 
+const setupHasFocus = () => document.activeElement === setupNameInputElement;
+
 const onSetupEscPressed = (event) => {
-  if (event.key === `Escape`) {
+  if (event.key === `Escape` && !setupHasFocus()) {
     closeSetup();
   }
 };
-
-const setupHasFocus = () => document.activeElement === setupNameInputElement;
 
 const openSetup = () => {
   showElement(setupElement);
@@ -202,17 +202,16 @@ const openSetup = () => {
 };
 
 const closeSetup = () => {
-  if (!setupHasFocus()) {
-    hideElement(setupElement);
+  hideElement(setupElement);
 
-    setupCloseElement.removeEventListener(`click`, onSetupCloseClick);
-    setupCloseElement.removeEventListener(`keydown`, onSetupCloseEnterPressed);
-    document.removeEventListener(`keydown`, onSetupEscPressed);
+  setupCloseElement.removeEventListener(`click`, onSetupCloseClick);
+  setupCloseElement.removeEventListener(`keydown`, onSetupCloseEnterPressed);
+  document.removeEventListener(`keydown`, onSetupEscPressed);
 
-    setupWizardEyesElement.removeEventListener(`click`, onWizardEyesClick);
-    setupWizardCoatElement.removeEventListener(`click`, onWizardCoatClick);
-    setupFireballWrapElement.removeEventListener(`click`, onFireballClick);
-  }
+  setupWizardEyesElement.removeEventListener(`click`, onWizardEyesClick);
+  setupWizardCoatElement.removeEventListener(`click`, onWizardCoatClick);
+  setupFireballWrapElement.removeEventListener(`click`, onFireballClick);
+
 };
 
 setupOpenElement.addEventListener(`click`, () => {
