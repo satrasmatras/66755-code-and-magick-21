@@ -162,7 +162,7 @@ const onWizardEyesClick = () => {
 };
 
 const onWizardCoatClick = () => {
-  setWizardPartColor(setupWizardCoatElement, `fill`, setupFireballInputElement, COAT_COLORS);
+  setWizardPartColor(setupWizardCoatElement, `fill`, setupWizardCoatInputElement, COAT_COLORS);
 };
 
 const onFireballClick = () => {
