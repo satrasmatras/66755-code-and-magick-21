@@ -101,15 +101,15 @@ const generateSimilarWizards = (count) => {
   return wizards;
 };
 
-const fillWizardElement = (wizardElement, randomWizard) => {
+const fillWizardElement = (wizardElement, wizard) => {
   const wizardNameElement = wizardElement.querySelector(`.setup-similar-label`);
-  wizardNameElement.textContent = randomWizard.name;
+  wizardNameElement.textContent = wizard.name;
 
   const wizardCoatElement = wizardElement.querySelector(`.wizard-coat`);
-  wizardCoatElement.style.fill = randomWizard.coatColor;
+  wizardCoatElement.style.fill = wizard.coatColor;
 
   const wizardEyesElement = wizardElement.querySelector(`.wizard-eyes`);
-  wizardEyesElement.style.fill = randomWizard.eyesColor;
+  wizardEyesElement.style.fill = wizard.eyesColor;
 };
 
 const createSimilarWizardElement = (template, similarWizard) => {
