@@ -14,6 +14,19 @@
     closeSetup();
   };
 
+  const getDialogInitialPosition = () => {
+    const {left, top} = getComputedStyle(setupElement);
+    return {
+      left,
+      top
+    };
+  };
+
+  const setDialogToInitialPosition = () => {
+    setupElement.style.top = initialDialogCoords.top;
+    setupElement.style.left = initialDialogCoords.left;
+  };
+
   const onSetupCloseEnterPressed = (event) => {
     if (isEnterKey(event)) {
       closeSetup();
@@ -40,29 +53,37 @@
     document.removeEventListener(`keydown`, onSetupEscPressed);
   };
 
+  let isOpened = false;
+
   const openSetup = () => {
     showSimilarWizardsList();
+    setDialogToInitialPosition();
     showElement(setupElement);
     addDialogListeners();
     addSetupListeners();
+    isOpened = true;
   };
 
   const closeSetup = () => {
     hideElement(setupElement);
+    setDialogToInitialPosition();
     clearSimilarWizardsList();
     removeDialogListeners();
     removeSetupListeners();
+    isOpened = false;
   };
 
   setupOpenElement.addEventListener(`click`, (event) => {
-    if (isMainClick(event)) {
+    if (isMainClick(event) && !isOpened) {
       openSetup();
     }
   });
 
   setupOpenElement.addEventListener(`keydown`, (event) => {
-    if (isEnterKey(event)) {
+    if (isEnterKey(event) && !isOpened) {
       openSetup();
     }
   });
+
+  const initialDialogCoords = getDialogInitialPosition();
 })();
