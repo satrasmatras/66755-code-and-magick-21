@@ -1,11 +1,9 @@
 'use strict';
 
 (function () {
-
   const {getNextItemFromArray} = window.random;
   const {EYE_COLORS, COAT_COLORS, FIREBALL_COLORS} = window.wizardData;
   const {setupElement} = window.elements;
-  const {showSimilarWizardsList} = window.similarWizards;
 
   const setupPlayerElement = setupElement.querySelector(`.setup-player`);
 
