@@ -53,19 +53,19 @@ const getRandomNumberInRange = (max) => {
   return Math.round(Math.random() * max);
 };
 
-const getRandomFromArray = (array) => {
+const getRandomItemFromArray = (array) => {
   return array[getRandomNumberInRange(array.length - 1)];
 };
 
 const getWizardName = () => {
-  const randomName = getRandomFromArray(NAMES);
-  const randomSurname = getRandomFromArray(SURNAMES);
+  const randomName = getRandomItemFromArray(NAMES);
+  const randomSurname = getRandomItemFromArray(SURNAMES);
   return `${randomName} ${randomSurname}`;
 };
 
-const getWizardCoatColor = () => getRandomFromArray(COAT_COLORS);
+const getWizardCoatColor = () => getRandomItemFromArray(COAT_COLORS);
 
-const getWizardEyeColor = () => getRandomFromArray(EYE_COLORS);
+const getWizardEyeColor = () => getRandomItemFromArray(EYE_COLORS);
 
 const showElement = (element) => {
   element.classList.remove(`hidden`);
