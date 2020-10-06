@@ -120,9 +120,9 @@ const createSimilarWizardElement = (similarWizard) => {
   return fragment;
 };
 
-const createSimilarWizardElements = (template, similarWizards) => {
+const createSimilarWizardElements = (similarWizards) => {
   return similarWizards.map((similarWizard) => {
-    return createSimilarWizardElement(template, similarWizard);
+    return createSimilarWizardElement(similarWizard);
   });
 };
 
