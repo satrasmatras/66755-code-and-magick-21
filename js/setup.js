@@ -112,9 +112,9 @@ const fillWizardElement = (wizardElement, wizard) => {
   wizardEyesElement.style.fill = wizard.eyesColor;
 };
 
-const createSimilarWizardElement = (template, similarWizard) => {
+const createSimilarWizardElement = (similarWizard) => {
   const fragment = document.createDocumentFragment();
-  const similarWizardElement = template.cloneNode(true);
+  const similarWizardElement = similarWizardTemplate.cloneNode(true);
   fillWizardElement(similarWizardElement, similarWizard);
   fragment.append(similarWizardElement);
   return fragment;
