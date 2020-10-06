@@ -90,17 +90,6 @@ const createRandomWizard = () => {
   };
 };
 
-const generateSimilarWizards = (count) => {
-  let wizards = [];
-
-  for (let i = 0; i < count; i++) {
-    const randomWizard = createRandomWizard();
-    wizards.push(randomWizard);
-  }
-
-  return wizards;
-};
-
 const fillWizardElement = (wizardElement, wizard) => {
   const wizardNameElement = wizardElement.querySelector(`.setup-similar-label`);
   wizardNameElement.textContent = wizard.name;
@@ -112,18 +101,30 @@ const fillWizardElement = (wizardElement, wizard) => {
   wizardEyesElement.style.fill = wizard.eyesColor;
 };
 
-const createSimilarWizardElement = (similarWizard) => {
-  const fragment = document.createDocumentFragment();
+const createSimilarWizardElement = () => {
   const similarWizardElement = similarWizardTemplate.cloneNode(true);
-  fillWizardElement(similarWizardElement, similarWizard);
-  fragment.append(similarWizardElement);
-  return fragment;
+
+  const wizard = createRandomWizard();
+  fillWizardElement(similarWizardElement, wizard);
+
+  return similarWizardElement;
 };
 
-const createSimilarWizardElements = (similarWizards) => {
-  return similarWizards.map((similarWizard) => {
-    return createSimilarWizardElement(similarWizard);
-  });
+const createSimilarWizardElements = (count) => {
+  const similarWizardElements = [];
+
+  for (let i = 0; i < count; i++) {
+    const similarWizardElement = createSimilarWizardElement();
+    similarWizardElements.push(similarWizardElement);
+  }
+
+  return similarWizardElements;
+};
+
+const renderSimilarWizardsElements = (elements) => {
+  const fragment = document.createDocumentFragment();
+  fragment.append(...elements);
+  similarListElement.append(fragment);
 };
 
 const getNextItemFromArray = (item, array) => {
@@ -225,7 +226,6 @@ setupOpenElement.addEventListener(`keydown`, (event) => {
 
 const similarListElement = document.querySelector(`.setup-similar-list`);
 const similarWizardTemplate = getSimilarWizardTemplate();
-const similarWizards = generateSimilarWizards(SIMILAR_WIZARDS_COUNT);
-const similarWizardElements = createSimilarWizardElements(similarWizardTemplate, similarWizards);
-similarListElement.append(...similarWizardElements);
+const similarWizardElements = createSimilarWizardElements(SIMILAR_WIZARDS_COUNT);
+renderSimilarWizardsElements(similarWizardElements);
 showElement(setupSimilarElement);
