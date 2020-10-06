@@ -95,7 +95,7 @@ const generateSimilarWizards = (count) => {
 
   for (let i = 0; i < count; i++) {
     const randomWizard = createRandomWizard();
-    wizards = [...wizards, randomWizard];
+    wizards.push(randomWizard);
   }
 
   return wizards;
