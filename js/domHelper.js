@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const showElement = (element) => {
     element.classList.remove(`hidden`);
   };

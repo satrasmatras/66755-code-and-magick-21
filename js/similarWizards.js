@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const {showElement} = window.domHelper;
   const {createRandomWizard} = window.randomWizard;
   const {setupElement} = window.elements;

@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const Cloud = {
     X: 100,
     Y: 10,
