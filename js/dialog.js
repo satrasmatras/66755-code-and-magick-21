@@ -11,7 +11,7 @@
 
   const setupOpenElement = document.querySelector(`.setup-open`);
   const setupCloseElement = setupElement.querySelector(`.setup-close`);
-  const setupForm = setupElement.querySelector(`.setup-wizard-form`);
+  const setupFormElement = setupElement.querySelector(`.setup-wizard-form`);
 
   const onSetupCloseClick = () => {
     closeSetup();
@@ -56,15 +56,13 @@
     document.removeEventListener(`keydown`, onSetupEscPressed);
   };
 
-  let isOpened = false;
-
   const openSetup = () => {
     showSimilarWizardsList();
     setDialogToInitialPosition();
     showElement(setupElement);
     addDialogListeners();
     addSetupListeners();
-    isOpened = true;
+    removeSetupOpenListeners();
   };
 
   const closeSetup = () => {
@@ -73,20 +71,30 @@
     clearSimilarWizardsList();
     removeDialogListeners();
     removeSetupListeners();
-    isOpened = false;
+    addSetupOpenListeners();
   };
 
-  setupOpenElement.addEventListener(`click`, (event) => {
-    if (isMainClick(event) && !isOpened) {
+  const onSetupOpenClick = (event) => {
+    if (isMainClick(event)) {
       openSetup();
     }
-  });
+  };
 
-  setupOpenElement.addEventListener(`keydown`, (event) => {
-    if (isEnterKey(event) && !isOpened) {
+  const onSetupOpenEnterPressed = (event) => {
+    if (isEnterKey(event)) {
       openSetup();
     }
-  });
+  };
+
+  const addSetupOpenListeners = () => {
+    setupOpenElement.addEventListener(`click`, onSetupOpenClick);
+    setupOpenElement.addEventListener(`keydown`, onSetupOpenEnterPressed);
+  };
+
+  const removeSetupOpenListeners = () => {
+    setupOpenElement.removeEventListener(`click`, onSetupOpenClick);
+    setupOpenElement.removeEventListener(`keydown`, onSetupOpenEnterPressed);
+  };
 
   const onLoad = () => {
     closeSetup();
@@ -99,13 +107,15 @@
   const onSubmit = (event) => {
     event.preventDefault();
 
-    if (setupForm.reportValidity()) {
-      const data = new FormData(setupForm);
+    if (setupFormElement.reportValidity()) {
+      const data = new FormData(setupFormElement);
       save(data, onLoad, onError);
     }
   };
 
-  setupForm.addEventListener(`submit`, onSubmit);
+  addSetupOpenListeners();
+
+  setupFormElement.addEventListener(`submit`, onSubmit);
 
   const initialDialogCoords = getDialogInitialPosition();
 })();
