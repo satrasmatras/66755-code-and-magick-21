@@ -6,9 +6,12 @@
   const {setupElement, setupNameInputElement} = window.elements;
   const {addSetupListeners, removeSetupListeners} = window.setup;
   const {showSimilarWizardsList, clearSimilarWizardsList} = window.similarWizards;
+  const {save} = window.backend;
+  const {showError} = window.message;
 
   const setupOpenElement = document.querySelector(`.setup-open`);
   const setupCloseElement = setupElement.querySelector(`.setup-close`);
+  const setupForm = setupElement.querySelector(`.setup-wizard-form`);
 
   const onSetupCloseClick = () => {
     closeSetup();
@@ -84,6 +87,25 @@
       openSetup();
     }
   });
+
+  const onLoad = () => {
+    closeSetup();
+  };
+
+  const onError = (errorMessage) => {
+    showError(errorMessage);
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    if (setupForm.reportValidity()) {
+      const data = new FormData(setupForm);
+      save(data, onLoad, onError);
+    }
+  };
+
+  setupForm.addEventListener(`submit`, onSubmit);
 
   const initialDialogCoords = getDialogInitialPosition();
 })();

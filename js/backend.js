@@ -2,14 +2,14 @@
 
 (() => {
   const URL = `https://21.javascript.pages.academy/code-and-magick`;
-  const GET = `GET`;
-  const POST = `POST`;
+  const RESPONSE_TYPE = `json`;
+  const TIMEOUT = 10000;
 
   const createXHR = (method, url, onLoad, onError) => {
     const xhr = new XMLHttpRequest();
 
-    xhr.responseType = `json`;
-    xhr.timeout = 10000;
+    xhr.responseType = RESPONSE_TYPE;
+    xhr.timeout = TIMEOUT;
 
     xhr.open(method, url);
 
@@ -55,12 +55,12 @@
   };
 
   const load = (onLoad, onError) => {
-    const xhr = createXHR(GET, `${URL}/data`, onLoad, onError);
+    const xhr = createXHR(`GET`, `${URL}/data`, onLoad, onError);
     xhr.send();
   };
 
   const save = (data, onLoad, onError) => {
-    const xhr = createXHR(POST, `${URL}`, onLoad, onError);
+    const xhr = createXHR(`POST`, `${URL}`, onLoad, onError);
     xhr.send(data);
   };
 
