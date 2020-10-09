@@ -5,6 +5,13 @@
   const RESPONSE_TYPE = `json`;
   const TIMEOUT = 10000;
 
+  const StatusCode = {
+    OK: 200,
+    NOT_AUTHORIZED: 401,
+    NOT_FOUND: 404,
+    BAD_REQUEST: 400,
+  };
+
   const createXHR = (method, url, onLoad, onError) => {
     const xhr = new XMLHttpRequest();
 
@@ -17,19 +24,19 @@
       let error = ``;
 
       switch (xhr.status) {
-        case 200:
+        case StatusCode.OK:
           onLoad(xhr.response);
           break;
 
-        case 400:
+        case StatusCode.BAD_REQUEST:
           error = `Неверный запрос`;
           break;
 
-        case 401:
+        case StatusCode.NOT_AUTHORIZED:
           error = `Пользователь не авторизован`;
           break;
 
-        case 404:
+        case StatusCode.NOT_FOUND:
           error = `Ничего не найдено`;
           break;
 
