@@ -60,7 +60,7 @@
   };
 
   const save = (data, onLoad, onError) => {
-    const xhr = createXHR(`POST`, `${URL}`, onLoad, onError);
+    const xhr = createXHR(`POST`, URL, onLoad, onError);
     xhr.send(data);
   };
 
