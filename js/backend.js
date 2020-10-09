@@ -4,7 +4,6 @@
   const URL = `https://21.javascript.pages.academy/code-and-magick`;
   const RESPONSE_TYPE = `json`;
   const TIMEOUT = 10000;
-
   const StatusCode = {
     OK: 200,
     NOT_AUTHORIZED: 401,
