@@ -20,32 +20,26 @@
     xhr.open(method, url);
 
     xhr.addEventListener(`load`, function () {
-      let error = ``;
-
       switch (xhr.status) {
         case StatusCode.OK:
           onLoad(xhr.response);
           break;
 
         case StatusCode.BAD_REQUEST:
-          error = `Неверный запрос`;
+          onError(`Неверный запрос`);
           break;
 
         case StatusCode.NOT_AUTHORIZED:
-          error = `Пользователь не авторизован`;
+          onError(`Пользователь не авторизован`);
           break;
 
         case StatusCode.NOT_FOUND:
-          error = `Ничего не найдено`;
+          onError(`Ничего не найдено`);
           break;
 
         default:
-          error = `Статус ответа: ${xhr.status} ${xhr.statusText}`;
+          onError(`Статус ответа: ${xhr.status} ${xhr.statusText}`);
           break;
-      }
-
-      if (error) {
-        onError(error);
       }
     });
 
