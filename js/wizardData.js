@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const NAMES = [
     `Иван`,
     `Хуан Себастьян`,

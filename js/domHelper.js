@@ -1,12 +1,14 @@
 'use strict';
 
-(function () {
+(() => {
+  const HIDDEN_CLASS = `hidden`;
+
   const showElement = (element) => {
-    element.classList.remove(`hidden`);
+    element.classList.remove(HIDDEN_CLASS);
   };
 
   const hideElement = (element) => {
-    element.classList.add(`hidden`);
+    element.classList.add(HIDDEN_CLASS);
   };
 
   window.domHelper = {

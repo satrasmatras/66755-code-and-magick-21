@@ -1,9 +1,10 @@
 'use strict';
 
-(function () {
+(() => {
   const {showElement} = window.domHelper;
-  const {createRandomWizard} = window.randomWizard;
   const {setupElement} = window.elements;
+  const {load} = window.backend;
+  const {onError} = window.message;
 
   const SIMILAR_WIZARDS_COUNT = 4;
 
@@ -24,26 +25,25 @@
     wizardNameElement.textContent = wizard.name;
 
     const wizardCoatElement = wizardElement.querySelector(`.wizard-coat`);
-    wizardCoatElement.style.fill = wizard.coatColor;
+    wizardCoatElement.style.fill = wizard.colorCoat;
 
     const wizardEyesElement = wizardElement.querySelector(`.wizard-eyes`);
-    wizardEyesElement.style.fill = wizard.eyesColor;
+    wizardEyesElement.style.fill = wizard.colorEyes;
   };
 
-  const createSimilarWizardElement = () => {
+  const createSimilarWizardElement = (wizard) => {
     const similarWizardElement = similarWizardTemplate.cloneNode(true);
 
-    const wizard = createRandomWizard();
     fillWizardElement(similarWizardElement, wizard);
 
     return similarWizardElement;
   };
 
-  const createSimilarWizardElements = (count) => {
+  const createSimilarWizardElements = (wizards) => {
     const similarWizardElements = [];
 
-    for (let i = 0; i < count; i++) {
-      const similarWizardElement = createSimilarWizardElement();
+    for (let wizard of wizards) {
+      const similarWizardElement = createSimilarWizardElement(wizard);
       similarWizardElements.push(similarWizardElement);
     }
 
@@ -60,10 +60,15 @@
     similarListElement.innerHTML = ``;
   };
 
-  const showSimilarWizardsList = () => {
-    const similarWizardElements = createSimilarWizardElements(SIMILAR_WIZARDS_COUNT);
-    renderSimilarWizardsElements(similarWizardElements);
+  const onLoad = (wizards) => {
+    const randomWizards = wizards.slice(0, SIMILAR_WIZARDS_COUNT);
+    const wizardElements = createSimilarWizardElements(randomWizards);
+    renderSimilarWizardsElements(wizardElements);
     showElement(setupSimilarElement);
+  };
+
+  const showSimilarWizardsList = () => {
+    load(onLoad, onError);
   };
 
   window.similarWizards = {

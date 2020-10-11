@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const {getRandomItemFromArray} = window.random;
   const {NAMES, SURNAMES, COAT_COLORS, EYE_COLORS} = window.wizardData;
 

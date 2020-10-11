@@ -1,8 +1,8 @@
 'use strict';
 
-(function () {
+(() => {
   const {setupElement} = window.elements;
-  const dialogHandle = setupElement.querySelector(`.upload`);
+  const dialogHandleElement = setupElement.querySelector(`.upload`);
 
   let startCoords;
   let dragged;
@@ -46,14 +46,14 @@
     if (dragged) {
       const onClickPreventDefault = function (clickEvt) {
         clickEvt.preventDefault();
-        dialogHandle.removeEventListener(`click`, onClickPreventDefault);
+        dialogHandleElement.removeEventListener(`click`, onClickPreventDefault);
       };
-      dialogHandle.addEventListener(`click`, onClickPreventDefault);
+      dialogHandleElement.addEventListener(`click`, onClickPreventDefault);
     }
 
     document.removeEventListener(`mousemove`, onMouseMove);
     document.removeEventListener(`mouseup`, onMouseMove);
   };
 
-  dialogHandle.addEventListener(`mousedown`, onMouseDown);
+  dialogHandleElement.addEventListener(`mousedown`, onMouseDown);
 })();
