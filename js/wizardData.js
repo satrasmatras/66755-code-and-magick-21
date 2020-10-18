@@ -1,6 +1,8 @@
 'use strict';
 
 (() => {
+  const {getRandomItemFromArray} = window.random;
+
   const NAMES = [
     `Иван`,
     `Хуан Себастьян`,
@@ -48,11 +50,30 @@
     `#e6e848`
   ];
 
+  const getWizardName = () => {
+    const randomName = getRandomItemFromArray(NAMES);
+    const randomSurname = getRandomItemFromArray(SURNAMES);
+    return `${randomName} ${randomSurname}`;
+  };
+
+  const getWizardCoatColor = () => getRandomItemFromArray(COAT_COLORS);
+
+  const getWizardEyeColor = () => getRandomItemFromArray(EYE_COLORS);
+
+  const generateRandomWizard = () => {
+    return {
+      name: getWizardName(),
+      coatColor: getWizardCoatColor(),
+      eyesColor: getWizardEyeColor()
+    };
+  };
+
   window.wizardData = {
     NAMES,
     SURNAMES,
     COAT_COLORS,
     EYE_COLORS,
-    FIREBALL_COLORS
+    FIREBALL_COLORS,
+    generateRandomWizard
   };
 })();
