@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const {getNextItemFromArray} = window.random;
   const {EYE_COLORS, COAT_COLORS, FIREBALL_COLORS} = window.wizardData;
   const {setupElement} = window.elements;

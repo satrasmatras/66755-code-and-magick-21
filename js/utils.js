@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const ESC = `Escape`;
   const ENTER = `Enter`;
   const MAIN_CLICK = 0;

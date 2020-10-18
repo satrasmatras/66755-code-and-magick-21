@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(() => {
   const {showElement, hideElement} = window.domHelper;
   const {isEscKey, isMainClick, isEnterKey} = window.utils;
   const {setupElement, setupNameInputElement} = window.elements;
