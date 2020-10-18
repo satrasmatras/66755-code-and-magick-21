@@ -4,6 +4,8 @@
   const {showElement} = window.domHelper;
   const {setupElement} = window.elements;
   const {createSimilarWizardElement} = window.similarWizard;
+  const {load} = window.backend;
+  const {onError} = window.message;
 
   const SIMILAR_WIZARDS_COUNT = 4;
 
@@ -25,9 +27,15 @@
     similarListElement.innerHTML = ``;
   };
 
-  const showSimilarWizardsList = (wizards) => {
-    renderSimilarWizardsElements(wizards);
+  const onWizardsLoad = (wizards) => {
+    const randomWizards = wizards.slice(0, SIMILAR_WIZARDS_COUNT);
+
+    renderSimilarWizardsElements(randomWizards);
     showElement(setupSimilarElement);
+  };
+
+  const showSimilarWizardsList = () => {
+    load(onWizardsLoad, onError);
   };
 
   window.similarWizards = {

@@ -4,11 +4,14 @@
   const {showElement, hideElement} = window.domHelper;
   const {isEscKey, isMainClick, isEnterKey} = window.utils;
   const {setupElement, setupNameInputElement} = window.elements;
-  const {addSetupListeners, removeSetupListeners} = window.playerWizard;
+  const {addPlayerWizardSetupListeners, removePlayerWizardSetupListeners} = window.playerWizard;
   const {showSimilarWizardsList, clearSimilarWizardsList} = window.similarWizards;
+  const {save} = window.backend;
+  const {showError} = window.message;
 
   const setupOpenElement = document.querySelector(`.setup-open`);
   const setupCloseElement = setupElement.querySelector(`.setup-close`);
+  const setupFormElement = setupElement.querySelector(`.setup-wizard-form`);
 
   const getDialogInitialPosition = () => {
     const {left, top} = getComputedStyle(setupElement);
@@ -60,8 +63,9 @@
     setDialogToInitialPosition();
     showElement(setupElement);
     addDialogListeners();
-    addSetupListeners();
-    removeOpenSetupListeners();
+    addOpenSetupListeners();
+    addPlayerWizardSetupListeners();
+    setupFormElement.addEventListener(`submit`, onSubmit);
   };
 
   const closeSetup = () => {
@@ -69,8 +73,10 @@
     setDialogToInitialPosition();
     clearSimilarWizardsList();
     removeDialogListeners();
-    removeSetupListeners();
+    removeOpenSetupListeners();
     addOpenSetupListeners();
+    removePlayerWizardSetupListeners();
+    setupFormElement.removeEventListener(`submit`, onSubmit);
   };
 
   const onSetupOpenElementClick = (event) => {
@@ -94,6 +100,25 @@
     setupOpenElement.removeEventListener(`click`, onSetupOpenElementClick);
     setupOpenElement.removeEventListener(`keydown`, onSetupOpenEnterPressed);
   };
+
+  const onFormSubmitSentSuccess = () => {
+    closeSetup();
+  };
+
+  const onFormSubmitSentError = (errorMessage) => {
+    showError(errorMessage);
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    if (setupFormElement.reportValidity()) {
+      const data = new FormData(setupFormElement);
+      save(data, onFormSubmitSentSuccess, onFormSubmitSentError);
+    }
+  };
+
+  addOpenSetupListeners();
 
   const initialDialogCoords = getDialogInitialPosition();
 })();
