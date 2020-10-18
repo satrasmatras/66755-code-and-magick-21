@@ -4,15 +4,11 @@
   const {showElement, hideElement} = window.domHelper;
   const {isEscKey, isMainClick, isEnterKey} = window.utils;
   const {setupElement, setupNameInputElement} = window.elements;
-  const {addSetupListeners, removeSetupListeners} = window.setup;
+  const {addSetupListeners, removeSetupListeners} = window.playerWizard;
   const {showSimilarWizardsList, clearSimilarWizardsList} = window.similarWizards;
 
   const setupOpenElement = document.querySelector(`.setup-open`);
   const setupCloseElement = setupElement.querySelector(`.setup-close`);
-
-  const onSetupCloseClick = () => {
-    closeSetup();
-  };
 
   const getDialogInitialPosition = () => {
     const {left, top} = getComputedStyle(setupElement);
@@ -25,6 +21,12 @@
   const setDialogToInitialPosition = () => {
     setupElement.style.top = initialDialogCoords.top;
     setupElement.style.left = initialDialogCoords.left;
+  };
+
+  const onSetupCloseClick = (event) => {
+    if (isMainClick(event)) {
+      closeSetup();
+    }
   };
 
   const onSetupCloseEnterPressed = (event) => {
@@ -53,15 +55,13 @@
     document.removeEventListener(`keydown`, onSetupEscPressed);
   };
 
-  let isOpened = false;
-
   const openSetup = () => {
     showSimilarWizardsList();
     setDialogToInitialPosition();
     showElement(setupElement);
     addDialogListeners();
     addSetupListeners();
-    isOpened = true;
+    removeOpenSetupListeners();
   };
 
   const closeSetup = () => {
@@ -70,20 +70,30 @@
     clearSimilarWizardsList();
     removeDialogListeners();
     removeSetupListeners();
-    isOpened = false;
+    addOpenSetupListeners();
   };
 
-  setupOpenElement.addEventListener(`click`, (event) => {
-    if (isMainClick(event) && !isOpened) {
+  const onSetupOpenElementClick = (event) => {
+    if (isMainClick(event)) {
       openSetup();
     }
-  });
+  };
 
-  setupOpenElement.addEventListener(`keydown`, (event) => {
-    if (isEnterKey(event) && !isOpened) {
+  const onSetupOpenEnterPressed = (event) => {
+    if (isEnterKey(event)) {
       openSetup();
     }
-  });
+  };
+
+  const addOpenSetupListeners = () => {
+    setupOpenElement.addEventListener(`click`, onSetupOpenElementClick);
+    setupOpenElement.addEventListener(`keydown`, onSetupOpenEnterPressed);
+  };
+
+  const removeOpenSetupListeners = () => {
+    setupOpenElement.removeEventListener(`click`, onSetupOpenElementClick);
+    setupOpenElement.removeEventListener(`keydown`, onSetupOpenEnterPressed);
+  };
 
   const initialDialogCoords = getDialogInitialPosition();
 })();

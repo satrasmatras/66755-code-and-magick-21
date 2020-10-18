@@ -25,31 +25,46 @@
   };
 
   const onWizardEyesClick = () => {
-    setWizardPartColor(setupWizardEyesElement, `fill`, setupWizardEyesInputElement, EYE_COLORS);
+    setWizardPartColor(
+        setupWizardEyesElement,
+        `fill`,
+        setupWizardEyesInputElement,
+        EYE_COLORS
+    );
   };
 
   const onWizardCoatClick = () => {
-    setWizardPartColor(setupWizardCoatElement, `fill`, setupWizardCoatInputElement, COAT_COLORS);
+    setWizardPartColor(
+        setupWizardCoatElement,
+        `fill`,
+        setupWizardCoatInputElement,
+        COAT_COLORS
+    );
   };
 
   const onFireballClick = () => {
-    setWizardPartColor(setupFireballWrapElement, `background-color`, setupFireballInputElement, FIREBALL_COLORS);
+    setWizardPartColor(
+        setupFireballWrapElement,
+        `background-color`,
+        setupFireballInputElement,
+        FIREBALL_COLORS
+    );
   };
 
-  const addSetupListeners = () => {
+  const addPlayerWizardSetupListeners = () => {
     setupWizardEyesElement.addEventListener(`click`, onWizardEyesClick);
     setupWizardCoatElement.addEventListener(`click`, onWizardCoatClick);
     setupFireballWrapElement.addEventListener(`click`, onFireballClick);
   };
 
-  const removeSetupListeners = () => {
+  const removePlayerWizardSetupListeners = () => {
     setupWizardEyesElement.removeEventListener(`click`, onWizardEyesClick);
     setupWizardCoatElement.removeEventListener(`click`, onWizardCoatClick);
     setupFireballWrapElement.removeEventListener(`click`, onFireballClick);
   };
 
-  window.setup = {
-    addSetupListeners,
-    removeSetupListeners
+  window.playerWizard = {
+    addPlayerWizardSetupListeners,
+    removePlayerWizardSetupListeners
   };
 })();

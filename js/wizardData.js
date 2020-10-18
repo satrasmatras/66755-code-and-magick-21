@@ -68,12 +68,24 @@
     };
   };
 
+  const generateRandomWizards = (count) => {
+    const randomWizards = [];
+
+    for (let i = 0; i < count; i++) {
+      const randomWizard = generateRandomWizard();
+      randomWizards.push(randomWizard);
+    }
+
+    return randomWizards;
+  };
+
   window.wizardData = {
     NAMES,
     SURNAMES,
     COAT_COLORS,
     EYE_COLORS,
     FIREBALL_COLORS,
-    generateRandomWizard
+    generateRandomWizard,
+    generateRandomWizards
   };
 })();
